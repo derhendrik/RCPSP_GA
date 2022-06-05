@@ -556,7 +556,7 @@ if __name__ == "__main__":
     instance_filepath = os.path.join(os.getcwd(), "Instances", "j30.sm")
 
     # my_test_project.read_project(instance_filepath, "test.sm")
-    my_test_project.read_project(instance_filepath, "j3045_1.sm")
+    my_test_project.read_project(instance_filepath, "j301_1.sm")
 
     my_test_project.solve_instance_via_ga(100, 50, 0.05, my_test_project.serial_SGS)
 
