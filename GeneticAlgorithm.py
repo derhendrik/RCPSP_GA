@@ -352,10 +352,12 @@ class Project(object):
                         for t_iterator in range(current_t, current_t + selected_node.duration):
                             R_kt[k][t_iterator] -= selected_node.renewable_resource_requirements[k]
 
-                        resource_profile_changes.extend(
-                            [i + 1 for i, value in enumerate(R_kt[k][1:]) if (R_kt[k][i] < value)])
+                        #resource_profile_changes.extend(
+                            #[i + 1 for i, value in enumerate(R_kt[k][1:]) if (R_kt[k][i] < value)])
 
+                    resource_profile_changes = [_.finish_time for _ in self.nodes.values() if _.finish_time]
                     resource_profile_changes = list(set(resource_profile_changes))
+                    resource_profile_changes.sort()
 
             scheduled_activities.add(selected_node)
             eligibles.remove(selected_node)
@@ -439,8 +441,12 @@ class Project(object):
                 for k in range(self.number_of_renewable_resources):
                     for t_iterator in range(current_t, current_t + selected_node.duration):
                         R_kt[k][t_iterator] -= selected_node.renewable_resource_requirements[k]
-                    resource_profile_changes.extend(
-                        [i + 1 for i, value in enumerate(R_kt[k][1:]) if (R_kt[k][i] < value)])
+                    #resource_profile_changes.extend(
+                        #[i + 1 for i, value in enumerate(R_kt[k][1:]) if (R_kt[k][i] < value)])
+
+                resource_profile_changes = [_.finish_time for _ in self.nodes.values() if _.finish_time]
+                resource_profile_changes = list(set(resource_profile_changes))
+                resource_profile_changes.sort()
 
                 actives.add(selected_node)
                 eligibles.remove(selected_node)
@@ -459,8 +465,9 @@ class Project(object):
                         if violation:
                             break
 
-            resource_profile_changes = [resource_profile_change for resource_profile_change in resource_profile_changes
-                                        if resource_profile_change > current_t]
+            #resource_profile_changes = [resource_profile_change for resource_profile_change in resource_profile_changes
+                                        #if resource_profile_change > current_t]
+            resource_profile_changes =  list(filter(lambda x: x>current_t, resource_profile_changes))
             finish_of_actives = [n.start_time + n.duration for n in actives]
 
             current_t = min(resource_profile_changes + finish_of_actives)
@@ -558,7 +565,7 @@ if __name__ == "__main__":
     # my_test_project.read_project(instance_filepath, "test.sm")
     my_test_project.read_project(instance_filepath, "j301_1.sm")
 
-    my_test_project.solve_instance_via_ga(100, 50, 0.05, my_test_project.serial_SGS)
+    my_test_project.solve_instance_via_ga(200, 100, 0.05, my_test_project.serial_SGS)
 
     end_time = timeit.default_timer()
     run_time = end_time - start_time
