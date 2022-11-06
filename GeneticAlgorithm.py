@@ -142,9 +142,9 @@ class Project(object):
             sgs(indiv)
 
         for gen in range(number_of_generations):
-            # print("gen: " + str(gen))
-            # print("incumbent fitness: " + str(incumbent.fitness))
-            # print("--")
+            print("gen: " + str(gen))
+            print("incumbent fitness: " + str(incumbent.fitness))
+            print("--")
 
             offsprings = self.crossover(population)
             offsprings = self.mutate(offsprings, mutation_probability)
@@ -560,12 +560,12 @@ if __name__ == "__main__":
     start_time = timeit.default_timer()
 
     my_test_project = Project()
-    instance_filepath = os.path.join(os.getcwd(), "Instances", "j30.sm")
+    instance_filepath = os.path.join(os.getcwd(), "Instances", "j120.sm")
 
     # my_test_project.read_project(instance_filepath, "test.sm")
-    my_test_project.read_project(instance_filepath, "j301_1.sm")
+    my_test_project.read_project(instance_filepath, "j12051_9.sm")
 
-    my_test_project.solve_instance_via_ga(200, 100, 0.05, my_test_project.serial_SGS)
+    my_test_project.solve_instance_via_ga(50, 100, 0.05, my_test_project.parallel_SGS)
 
     end_time = timeit.default_timer()
     run_time = end_time - start_time
