@@ -11,6 +11,8 @@ For an extensive introduction to the resource-constrained project scheduling pro
 - *"Scheduling Algorithms"* - Brucker [[Link](https://link.springer.com/book/10.1007/978-3-540-69516-5)]
 - *"Resource-Constrained Project Scheduling: Models, Algorithms, Extensions and Applications"* - Artigues, Demassey and Néron [[Link](https://onlinelibrary.wiley.com/doi/book/10.1002/9780470611227)]
 
+For a more visual introduction, see also this website: [PM Knowledge Center](https://www.pmknowledgecenter.be/dynamic_scheduling/baseline/optimizing-regular-scheduling-objectives-schedule-generation-schemes)
+
 ### Installation
 Install the modules listed in the `requirements.txt`.
 
