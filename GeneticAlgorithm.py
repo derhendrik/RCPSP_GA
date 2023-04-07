@@ -2,9 +2,9 @@ import random
 import os
 import timeit
 
-#from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 
-#plt.rcParams["figure.figsize"] = (16, 11)
+plt.rcParams["figure.figsize"] = (16, 11)
 
 
 class Node(object):
@@ -264,11 +264,11 @@ class Project(object):
         for indiv in offsprings:
             for index, activity in enumerate(indiv.activity_list[:-1]):
                 if random.random() < mutation_probability:
-                    store_current_activity_list = indiv.activity_list[:]
+                    stored_current_activity_list = indiv.activity_list[:]
                     indiv.activity_list[index + 1], indiv.activity_list[index] = indiv.activity_list[index], \
-                                                                                 indiv.activity_list[index + 1]
+                        indiv.activity_list[index + 1]
                     if not indiv.check_precedence_feasibility():
-                        indiv.activity_list = store_current_activity_list
+                        indiv.activity_list = stored_current_activity_list
 
         return offsprings
 
@@ -346,14 +346,9 @@ class Project(object):
                     selected_node.started = True
                     selected_node.finished = True
 
-                    resource_profile_changes = []
-
                     for k in range(self.number_of_renewable_resources):
                         for t_iterator in range(current_t, current_t + selected_node.duration):
                             R_kt[k][t_iterator] -= selected_node.renewable_resource_requirements[k]
-
-                        #resource_profile_changes.extend(
-                            #[i + 1 for i, value in enumerate(R_kt[k][1:]) if (R_kt[k][i] < value)])
 
                     resource_profile_changes = [_.finish_time for _ in self.nodes.values() if _.finish_time]
                     resource_profile_changes = list(set(resource_profile_changes))
@@ -428,7 +423,6 @@ class Project(object):
             started_nodes_in_iteration = set()
 
             while eligibles:
-                # print(eligibles)
 
                 selected_node: Node = eligibles[0]
 
@@ -441,8 +435,6 @@ class Project(object):
                 for k in range(self.number_of_renewable_resources):
                     for t_iterator in range(current_t, current_t + selected_node.duration):
                         R_kt[k][t_iterator] -= selected_node.renewable_resource_requirements[k]
-                    #resource_profile_changes.extend(
-                        #[i + 1 for i, value in enumerate(R_kt[k][1:]) if (R_kt[k][i] < value)])
 
                 resource_profile_changes = [_.finish_time for _ in self.nodes.values() if _.finish_time]
                 resource_profile_changes = list(set(resource_profile_changes))
@@ -465,9 +457,7 @@ class Project(object):
                         if violation:
                             break
 
-            #resource_profile_changes = [resource_profile_change for resource_profile_change in resource_profile_changes
-                                        #if resource_profile_change > current_t]
-            resource_profile_changes =  list(filter(lambda x: x>current_t, resource_profile_changes))
+            resource_profile_changes = list(filter(lambda x: x > current_t, resource_profile_changes))
             finish_of_actives = [n.start_time + n.duration for n in actives]
 
             current_t = min(resource_profile_changes + finish_of_actives)
@@ -501,7 +491,6 @@ class Project(object):
 
         individual.fitness = max([_.finish_time for _ in scheduled_activities])
 
-        ### All following checks can be deleted ###
         if debug:
             latest_finish = max([_.finish_time for _ in scheduled_activities])
             print(latest_finish)
