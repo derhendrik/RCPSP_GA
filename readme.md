@@ -1,6 +1,6 @@
 # Genetic Algorithm for the Resource-Constrained Project Scheduling Problem
 
-Python implementation of the Genetic Algorithm proposed by S. Hartmann in the research paper *"A competitive genetic algorithm for the resource-constrained project scheduling"*, see also [here](https://doi.org/10.1002/(SICI)1520-6750(199810)45:7%3C733::AID-NAV5%3E3.0.CO;2-C).
+Python implementation of the Genetic Algorithm proposed by S. Hartmann in the research paper *"A competitive genetic algorithm for resource-constrained project scheduling"*, see also [here](https://doi.org/10.1002/(SICI)1520-6750(199810)45:7%3C733::AID-NAV5%3E3.0.CO;2-C).
 Some adjustments have been made, such as generating the initial population with a roulette-wheel selection based on latest-finish-times of activities (instead of purely random).
 
 Mostly serves as a test bench for personal use or as a starting point for students that work on scheduling problems.
